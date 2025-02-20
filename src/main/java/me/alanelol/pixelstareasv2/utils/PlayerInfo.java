@@ -72,7 +72,8 @@ public class PlayerInfo {
 
     public boolean isSameDay()
     {
-        return tareaAssignedDay == Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+        return tareaAssignedDay == Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
+                || tareaAssignedDay == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1;
     }
 
     // TODO: MAKE THE STREAK ACTUALLY WORK AND CHANGE TASKS
@@ -118,11 +119,7 @@ public class PlayerInfo {
         }
         else
         {
-            int checkDay;
-            log(player.getName() + "is not the same day");
-            // 0 1 2 3 4 5 6
-            checkDay = tareaAssignedDay -1;
-            if (checkDay == Calendar.getInstance().get(Calendar.DAY_OF_YEAR))
+            if (isSameDay())
             {
                 log("is the same day");
             }
@@ -205,9 +202,9 @@ public class PlayerInfo {
     private boolean completed()
     {
         setTareaValues();
-        boolean EnoughKills = false;
-        boolean EnoughPlaytime = false;
-        boolean EnoughBlocks = false;
+        boolean EnoughKills;
+        boolean EnoughPlaytime;
+        boolean EnoughBlocks;
 
         // KILLS
         EnoughKills = playerKills >= killsRequired;
