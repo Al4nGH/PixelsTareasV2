@@ -170,6 +170,6 @@ public class TareaInfo extends MenuAbstract {
 
     @Override
     public void handleClickEvent(InventoryClickEvent event) {
-
+        event.setCancelled(true);
     }
 }
