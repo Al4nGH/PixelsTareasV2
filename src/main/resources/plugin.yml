@@ -1,0 +1,15 @@
+name: PixelsTareasV2
+version: '${project.version}'
+main: me.alanelol.pixelstareasv2.PixelsTareasV2
+api-version: '1.21'
+commands:
+  ttest:
+    permission: ttest
+  tareadiaria:
+    permission: pixels.tareadiaria
+    aliases:
+      - td
+      - dq
+      - dailyquest
+      - quest
+      - tarea
