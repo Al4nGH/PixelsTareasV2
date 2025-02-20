@@ -210,16 +210,10 @@ public class PlayerInfo {
         boolean EnoughBlocks = false;
 
         // KILLS
-        if (playerKills >= killsRequired)
-        {
-            EnoughKills = true;
-        }
+        EnoughKills = playerKills >= killsRequired;
 
         // PLAYTIME
-        if (secondsPlayed >= secondsRequired)
-        {
-            EnoughPlaytime = true;
-        }
+        EnoughPlaytime = secondsPlayed >= secondsRequired;
 
         // BLOCKS
         int i = 0;
@@ -237,12 +231,9 @@ public class PlayerInfo {
             }
         }
 
-        if (i == blocksRequired.size())
-        {
-            EnoughBlocks = true;
-        }
+        EnoughBlocks = i == blocksRequired.size();
 
-        log("EnoughKills: " + EnoughKills + " EnoughPlaytime: " + EnoughPlaytime + " EnoughBlocks: " + EnoughBlocks);
+        //log("EnoughKills: " + EnoughKills + " EnoughPlaytime: " + EnoughPlaytime + " EnoughBlocks: " + EnoughBlocks);
         return (EnoughKills && EnoughPlaytime && EnoughBlocks);
     }
 
@@ -254,14 +245,13 @@ public class PlayerInfo {
     public int getBlockProgress(Material material)
     {
         setTareaValues();
-        log(material.name());
         if (blocksRequired.containsKey(material))
         {
             if (blocksMined.get(material) == null)
             {
                 return 0;
             }
-            return (int) Math.floor(((double) blocksMined.get(material) / (double) blocksRequired.get(material)) * 10);
+            return (int) Math.clamp(Math.floor(((double) blocksMined.get(material) / (double) blocksRequired.get(material)) * 10) ,0, 10);
         }
         else
         {
@@ -277,7 +267,7 @@ public class PlayerInfo {
         {
             return 10;
         }
-        return (int) Math.floor(((double) playerKills / killsRequired) * 10);
+        return (int) Math.clamp(Math.floor(((double) playerKills / killsRequired) * 10), 0, 10);
     }
 
     public int getPlaytimeProgress()
@@ -287,7 +277,7 @@ public class PlayerInfo {
         {
             return 10;
         }
-        return (int) Math.floor(((double) secondsPlayed / secondsRequired) * 10);
+        return (int) Math.clamp(Math.floor(((double) secondsPlayed / secondsRequired) * 10), 0, 10);
     }
 
     // GETTERS Y SETTERS
